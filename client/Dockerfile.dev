@@ -1,0 +1,15 @@
+# Base image - node:apline
+FROM node:alpine
+# Declare working directory
+WORKDIR app
+# Copy package.json
+COPY ./package.json ./
+# Install dependencies
+RUN npm install
+# Copy over everything else
+COPY . .
+# Start container
+CMD ["npm", "run", "start"]
+
+# docker build -f Dockerfile.dev .
+# '.' represents build context
