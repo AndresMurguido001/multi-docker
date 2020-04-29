@@ -4,24 +4,24 @@ services:
 
     # build development docker image to prepare to run tests
 before_install:
-  - docker build -t AndresMurguido001/multi_docker_test -f ./client/Dockerfile.dev ./client
+  - docker build -t dremurguido/multi_docker_test -f ./client/Dockerfile.dev ./client
 
     # run docker dev container for testing
 script:
-  - docker run AndresMurguido001/multi_docker_test npm run test -- --coverage
+  - docker run dremurguido/multi_docker_test npm run test -- --coverage
         
     # if tests pass, build production version docker images
 after_success:
-  - docker build -t AndresMurguido001/multi_client ./client
-  - docker build -t AndresMurguido001/multi_server ./server
-  - docker build -t AndresMurguido001/multi_nginx ./nginx
-  - docker build -t AndresMurguido001/multi_worker ./worker
+  - docker build -t dremurguido/multi_client ./client
+  - docker build -t dremurguido/multi_server ./server
+  - docker build -t dremurguido/multi_nginx ./nginx
+  - docker build -t dremurguido/multi_worker ./worker
 
     # Log in to docker-cli
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     # Take production images and push them to dockerhub
-  - docker push AndresMurguido001/multi_client
-  - docker push AndresMurguido001/multi_server
-  - docker push AndresMurguido001/multi_nginx
-  - docker push AndresMurguido001/multi_worker
+  - docker push dremurguido/multi_client
+  - docker push dremurguido/multi_server
+  - docker push dremurguido/multi_nginx
+  - docker push dremurguido/multi_worker
 
