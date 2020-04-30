@@ -1,0 +1,35 @@
+{
+	"AWSEBDockerrunVersion": 2,
+	"containerDefinitions": [
+		{
+			"name": "client",
+			"image": "dremurguido/multi_client",
+			"hostname": "client",
+			"essential": false
+		},
+		{
+			"name": "server",
+			"image": "dremurguido/multi_server",
+			"hostname": "api",
+			"essential": false	
+		},
+		{
+			"name": "worker",
+			"image": "dremurguido/multi_worker",
+			"hostname": "worker",
+			"essential": false	
+		},
+		{
+			"name": "nginx",
+			"image": "dremurguido/multi_nginx",
+			"essential": true,
+			"portMappings": [
+				{ 
+					"hostPort": 80,
+					"containerPort": 80
+				}
+			],
+			"links": ["client", "server"]	
+		}
+	]
+}
